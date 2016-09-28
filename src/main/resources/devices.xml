@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<devices>
+    <device id="emulator_1">
+        <deviceName>emulator-5554</deviceName>
+        <browserName>Browser</browserName>
+        <version>5.1.1</version>
+        <platform>Android</platform>
+        <appPackage></appPackage>
+        <appActivity></appActivity>
+        <app></app>
+        <location>127.0.0.1:8888</location>
+    </device>
+    <device id="emulator_2">
+        <deviceName>emulator-5554</deviceName>
+        <browserName>Browser</browserName>
+        <version>5.1.1</version>
+        <platform>Android</platform>
+        <appPackage></appPackage>
+        <appActivity></appActivity>
+        <app></app>
+        <location>127.0.0.1:8889</location>
+    </device>
+</devices>
