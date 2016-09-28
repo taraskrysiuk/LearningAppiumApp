@@ -1,10 +1,18 @@
 package pool;
 
+import driver.Device;
+import driver.Devices;
 import driver.Driver;
+import driver.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -14,11 +22,21 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class DriverPool {
 
-    Map<Driver, Boolean> drivers;
+    private static DriverPool instance;
+    private static List<Device> devices;
+    private Map<Driver, Boolean> drivers;
     public  int poolSize;
     private Lock lock;
 
-    public DriverPool(int poolSize) {
+    public static synchronized DriverPool getInstance(){
+        if (instance == null){
+            devices = getDevices();
+            instance = new DriverPool(devices.size());
+        }
+        return instance;
+    }
+
+    private DriverPool(int poolSize) {
         lock = new ReentrantLock();
         this.poolSize = poolSize;
     }
@@ -28,7 +46,8 @@ public class DriverPool {
         lock.lock();
         if (drivers == null){
             drivers = new HashMap<Driver, Boolean>();
-            Driver driver  =  new Driver(new FirefoxDriver());
+            Driver driver  =  new DriverFactory().getDriverForDevice(devices.get(0));
+            devices.remove(0);
             drivers.put(driver, true);
             lock.unlock();
             return driver;
@@ -42,7 +61,8 @@ public class DriverPool {
             }
 
             if (drivers.size() < poolSize) {
-                Driver driver = new Driver(new FirefoxDriver());
+                Driver driver  =  new DriverFactory().getDriverForDevice(devices.get(0));
+                devices.remove(0);
                 drivers.put(driver, true);
                 lock.unlock();
                 return driver;
@@ -65,7 +85,6 @@ public class DriverPool {
         lock.unlock();
     }
 
-
     public void releaseAll() {
         for (Map.Entry<Driver, Boolean> d: drivers.entrySet()){
             d.setValue(false);
@@ -79,5 +98,13 @@ public class DriverPool {
         }
     }
 
-
+    private static List<Device> getDevices(){
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Devices.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            return ((Devices) unmarshaller.unmarshal(new File("src/main/resources/devices.xml"))).getDevice();
+        } catch (JAXBException e) {
+            return null;
+        }
+    }
 }

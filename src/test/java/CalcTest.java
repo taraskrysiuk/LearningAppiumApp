@@ -30,18 +30,18 @@ public class CalcTest {
 //        driver.navigateToURL("http://www.cybermonday.com");
 //        HomePage homePage = new HomePage(driver);
 //        homePage.open();
-
-        WebDriver driver = null;
-        try {
+//
+//        WebDriver driver = null;
+//        try {
 //            driver = DriverFactory.getAppiumDriver();
-            driver = DriverFactory.getDriver("");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        screen(driver);
-        driver.get("http://google.com.ua");
-
-        driver.get("http://vk.com");
+//            driver = DriverFactory.getDriver("");
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+//        screen(driver);
+//        driver.get("http://google.com.ua");
+//
+//        driver.get("http://vk.com");
 
     }
 

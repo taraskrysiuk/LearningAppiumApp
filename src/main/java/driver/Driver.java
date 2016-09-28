@@ -12,7 +12,6 @@ import java.io.File;
  */
 public class Driver implements BaseDriver {
 
-
     RemoteWebDriver remoteWebDriver;
 
     public RemoteWebDriver getDriver() {
