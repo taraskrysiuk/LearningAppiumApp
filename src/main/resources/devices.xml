@@ -2,22 +2,32 @@
 <devices>
     <device id="emulator_1">
         <deviceName>emulator-5554</deviceName>
-        <browserName>Browser</browserName>
-        <version>4.4.4</version>
+        <browserName>Android</browserName>
+        <version>4.4.2</version>
         <platform>Android</platform>
-        <appPackage></appPackage>
-        <appActivity></appActivity>
+        <appPackage>com.android.browser</appPackage>
+        <appActivity>com.android.browser.BrowserActivity</appActivity>
         <app></app>
-        <location>192.168.56.101:8888</location>
+        <location>127.0.0.1:8888</location>
     </device>
-    <device id="emulator_2">
-        <deviceName>emulator-5554</deviceName>
-        <browserName>Browser</browserName>
-        <version>4.4.4</version>
-        <platform>Android</platform>
-        <appPackage></appPackage>
-        <appActivity></appActivity>
-        <app></app>
-        <location>192.168.56.101:8889</location>
-    </device>
+    <!--<device id="emulator_2">-->
+        <!--<deviceName>emulator-5554</deviceName>-->
+        <!--<browserName>Android</browserName>-->
+        <!--<version>4.4.2</version>-->
+        <!--<platform>Android</platform>-->
+        <!--<appPackage>com.android.browser</appPackage>-->
+        <!--<appActivity>com.android.browser.BrowserActivity</appActivity>-->
+        <!--<app></app>-->
+        <!--<location>127.0.0.1:8899</location>-->
+    <!--</device>-->
+    <!--<device id="emulator_2">-->
+        <!--<deviceName>emulator-5554</deviceName>-->
+        <!--<browserName>Android</browserName>-->
+        <!--<version>5.1.1</version>-->
+        <!--<platform>Android</platform>-->
+        <!--<appPackage>com.android.browser</appPackage>-->
+        <!--<appActivity>com.android.browser.BrowserActivity</appActivity>-->
+        <!--<app></app>-->
+        <!--<location>127.0.0.1:4723</location>-->
+    <!--</device>-->
 </devices>

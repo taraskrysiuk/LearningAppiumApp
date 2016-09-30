@@ -8,7 +8,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public interface BaseDriver {
 
     RemoteWebDriver getDriver();
-
+    Device getDeviceInfo();
     void navigateToURL(String ur);
     Class navigateToPage(Class page);
     void clearCookies();

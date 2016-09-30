@@ -79,9 +79,14 @@ public class DriverPool {
 
 
     public void releaseDriver(Driver driver) {
+        System.out.println("Release ->" + driver.getDeviceInfo().getId());
         lock.lock();
         driver.clearCookies();
         drivers.put(driver, false);
+        System.out.println("Released ->" + driver.getDeviceInfo().getId());
+        if (allReleased()){
+            closeAll();
+        }
         lock.unlock();
     }
 
@@ -106,5 +111,15 @@ public class DriverPool {
         } catch (JAXBException e) {
             return null;
         }
+    }
+
+    private boolean allReleased(){
+        System.out.println("all released");
+        for (Map.Entry<Driver, Boolean> driver : drivers.entrySet()) {
+            if (driver.getValue()){
+                return false;
+            }
+        }
+        return true;
     }
 }

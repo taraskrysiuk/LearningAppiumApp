@@ -1,11 +1,13 @@
 package driver;
 
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.Set;
 
 /**
  * Created by taras on 9/18/16.
@@ -13,9 +15,14 @@ import java.io.File;
 public class Driver implements BaseDriver {
 
     RemoteWebDriver remoteWebDriver;
-
+    Device device;
     public RemoteWebDriver getDriver() {
         return remoteWebDriver;
+    }
+
+    @Override
+    public Device getDeviceInfo() {
+        return device;
     }
 
     public void navigateToURL(String url) {
@@ -26,12 +33,18 @@ public class Driver implements BaseDriver {
         return null;
     }
 
-    public Driver(RemoteWebDriver remoteWebDriver) {
+    public Driver(AppiumDriver remoteWebDriver, Device device) {
+        Set<String> context = remoteWebDriver.getContextHandles();
+        for (String s : context){
+            if(s.contains("WEBVIEW")){
+                remoteWebDriver.context(s);
+            }
+        }
         this.remoteWebDriver = remoteWebDriver;
+        this.device = device;
     }
 
     public void clearCookies() {
-        remoteWebDriver.manage().deleteAllCookies();
     }
 
     public void close() {
@@ -42,14 +55,5 @@ public class Driver implements BaseDriver {
         remoteWebDriver.quit();
     }
 
-    public static void main(String[] args) {
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Devices.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            Devices devices = (Devices) unmarshaller.unmarshal(new File("src/main/resources/devices.xml"));
-            System.out.println(devices.getDevice().get(0).toString());
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-    }
+
 }

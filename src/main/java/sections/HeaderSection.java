@@ -12,11 +12,14 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class HeaderSection extends BaseSection {
 
-    @FindBy(css = ".mn_searchInput")
+    @FindBy(xpath = "//*[@class='mn_searchInput']")
     public InputField searchField;
 
-    @FindBy(css = "form.mn_searchForm button")
+    @FindBy(xpath = "//form[contains(@class,'mn_searchForm')]/button")
     public Button searchButton;
+
+    @FindBy(xpath = "//div[contains(@class,mn_searchHeader)]/form")
+    public SearchBoxSection searchBox;
 
     public HeaderSection(WebElement root) {
         super(root);
